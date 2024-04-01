@@ -1,0 +1,11 @@
+.container {
+    width: 50vw;
+    height: 50vw;
+    margin: auto;
+    background-color: aqua;
+}
+
+.container img {
+    width: 20vw;
+    height: auto;
+}
