@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parameter Submit to server</title>
+</head>
+<body>
+    <h1>Parameter Submit to server</h1>
+    <h3>1. HttpServletRequest.getParameter("key")</h3>
+    <form action="/param/test1" method="post">
+        Name : <input type="text" name="inputName"> <br>
+        Age : <input type="number" name="inputAge"> <br>
+        Address : <input type="text" name="inputAddress"> <br>
+        <button>Submit</button>
+    </form>
+    <hr>
+    <h3>
+        2. @RequestParam Annotation
+        - only one
+    </h3>
+    <form action="/param/test2" method="post">
+        Book Title : <input type="text" name="title"> <br>
+        Author : <input type="text" name="author"> <br>
+        Price : <input type="number" name="price"> <br>
+        <button>Submit</button>
+    </form>
+</body>
+</html>

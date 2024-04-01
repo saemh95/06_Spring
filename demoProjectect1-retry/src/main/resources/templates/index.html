@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Project 1</title>
+</head>
+<body>
+    <h1>Spring Boot</h1>
+    <h2>src/main/resources/templates or /static -> index.html [main-page]</h2>
+    <h3>Spring Boot (server run)</h3>
+    <pre>
+        src/main/java -> package XXXApplication.java
+        create project -> auto create this file
+
+        from this class there is a main method
+        -> run -> Tomcat server 
+    </pre>
+    <hr>
+    <h3>Project Structure</h3>
+    <ul>
+        <li>src/main/java : Java source code</li>
+        <li>src/main/resources : resources of the project (preferences/css/html etc...)
+            <ul>
+                <li>template : Java templates (.html extention : thymeleaf)</li>
+                <li>static : static resources for templates (JS/CSS/img etc...)</li>
+                <li>application.properties : Spring Boot project -> global preferences</li>
+            </ul>
+        </li>
+        <li>Project & External Dependencies : build.gradle -> lib</li>
+        <li>build.gradle : gradle project -> lib/build/deployment</li>
+    </ul>
+    <hr><hr>
+    <ol>
+        <li>
+            <a href="/test">request : </a>
+        </li>
+        <li>
+            <a href="/example">static resources (JS/CSS/img)</a>
+        </li>
+        <li>
+            <a href="/param/main">Parameter Submit to server</a>
+        </li>
+    </ol>
+</body>
+</html>
