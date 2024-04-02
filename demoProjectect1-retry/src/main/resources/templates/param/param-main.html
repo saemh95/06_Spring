@@ -25,5 +25,37 @@
         Price : <input type="number" name="price"> <br>
         <button>Submit</button>
     </form>
+
+    <hr>
+    <h3>
+        3. @RequestParam Annotation
+        - mutiple
+    </h3>
+    <form action="/param/test3" method="post">
+        Color : 
+        Red <input type="checkbox" name="color" value="red">
+        Green <input type="checkbox" name="color" value="green">
+        Blue <input type="checkbox" name="color" value="blue">
+        <br><br>
+        Fruit :
+        Apple <input type="checkbox" name="fruit" value="apple">
+        Banana <input type="checkbox" name="fruit" value="banana">
+        Orange <input type="checkbox" name="fruit" value="orange"><br><br>
+        
+        Product Name : <input type="text" name="productName"> <br>
+        Expiration Date : <input type="date" name="expirationDate">
+        <br><br>
+        <button>Submit</button>
+    </form>
+    
+    <h3>4. @ModelAttribute Annotation</h3>
+    <form action="/param/test4" method="post"> <br>
+        ID : <input type="text" name="memberId"> <br>
+        Password : <input type="password" name="memberPw"> <br>
+        Name : <input type="text" name="memberName"> <br>
+        Age : <input type="number" name="memberAge"> <br>
+        <button>Submit</button>
+    </form>
+
 </body>
 </html>

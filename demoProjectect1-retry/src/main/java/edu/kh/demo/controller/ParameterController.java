@@ -1,12 +1,18 @@
 package edu.kh.demo.controller;
 
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.kh.demo.model.dto.MemberDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,5 +58,31 @@ public class ParameterController {
 		
 		return "redirect:/param/main";
 	}
+	
+	@PostMapping("test3")
+	public String postMethodName(@RequestParam(value="color", required=false) String[] colorArr, @RequestParam(value="fruit", required=false) List<String> fruitList, @RequestParam Map<String, Object> paramMap) {
+
+		log.debug("color : " + Arrays.toString(colorArr));
+		log.debug("fruit : " + fruitList);
+		log.debug("param : " + paramMap);
+		
+		return "redirect:/param/main";
+	}
+	
+	@PostMapping("test4")
+	public String postMethodName(/* @ModelAttribute */MemberDTO inputMember) {
+
+//		@ModelAttribute 
+		
+//		@ModelAttribute -> DTO if name="value" same as DTO name="value" -> .setValue
+//		MemberDTO inputMember -> command object
+//		@annotation -> doesn't have to filled out
+		
+		log.debug(inputMember.toString());
+		
+		return "redirect:/param/main";
+	}
+	
+	
 	
 }
