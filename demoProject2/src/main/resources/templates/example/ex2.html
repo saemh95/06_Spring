@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thymeleaf ex 2</title>
+</head>
+<body>
+    <h1>Thymeleaf ex 2</h1>
+
+    <h3>get Parameter from request</h3>
+    <pre>
+        ${param.key}
+        - req -> value of param
+    </pre>
+
+    <ul>
+        <li th:text="${param.inputName}"></li>
+        <li th:text="${param.inputAge}"></li>
+        <!-- without th:each -> null == "" -->
+        <li th:text="${param.color}"></li>
+    </ul>
+
+    <h3>Thymeleaf EL for</h3>
+    <ul>
+        <!-- if there is no value (null) th:each X -->
+        <li th:each="color : ${param.color}" th:text="*{color}"></li>
+    </ul>
+
+    <h3>difference between th:text/th:utext</h3>
+    <pre>
+        th:text = "value"
+        - tag of "value" -> print
+        - read HTML tag & special character X
+        th:utext = "value"
+        - tag of "value" -> print
+        - read HTML tag & special character O
+    </pre>
+
+    <div>
+        <h4>th:text</h4>
+        <th:block th:text="${str}"></th:block>
+        <h4>th:utext</h4>
+        <th:block th:utext="${str}"></th:block>
+    </div>
+    <hr>
+    <h2>
+        th:text / th:utext
+    </h2>
+    <pre>
+        th:text="| key +${key}|"
+    </pre>
+    <div>
+        <h4 th:text="|th:text + ${str}|"></h4>
+        <h4 th:utext="|th:utext + ${str}|"></h4>
+    </div>
+    <hr>
+    <h3>() <= substitude th:text/th:utext</h3>
+
+    <p>Input Name : [[${param.inputName}]]</p>
+    <p>Input Age : [[${param.inputAge}]]</p>
+    <p>Input Color : [[${param.color}]]</p>
+    <p>str : [(${str})]</p>
+
+    <hr>
+    <h1>print -> messages.properties</h1>
+    <h3 th:text="#{app.name}"></h3>
+    <img th:src="#{user.default.image}">
+
+    <div style="height: 50vw;"></div>
+</body>
+</html>

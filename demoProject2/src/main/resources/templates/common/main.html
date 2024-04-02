@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,5 +7,38 @@
 </head>
 <body>
     <h1>Thymeleaf</h1>
+
+    <h3>1. Template engine</h3>
+    <pre>
+        template + (server.data)model -> send to response [JSP etc..]
+        <a href="https://www.thymeleaf.org/">Thymeleaf Homepage</a>
+        web && independent environment -> Java template engine
+            -> web == forwarded page
+            -> indepentende environment == html file -> internet connection X
+
+            uses th in HTML
+            gets parameter from controller to create page
+
+            Spring Boot -> uses Thymeleaf
+    </pre>
+    <ol>
+        <li>
+            <a href="/example/ex1">Thymleaf ex 1</a>
+        </li>
+        <br>
+        <li>
+            <form action="/example/ex2" method="post">
+                Name : <input type="text" name="inputName"> <br>
+                Age : <input type="number" name="inputAge"> <br>
+                <br>
+                Color : 
+                Red <input type="checkbox" name="color" value="red">
+                Green <input type="checkbox" name="color" value="green">
+                Blue <input type="checkbox" name="color" value="blue">
+                <br>
+                <button>Submit</button>
+            </form>
+        </li>
+    </ol>
 </body>
 </html>

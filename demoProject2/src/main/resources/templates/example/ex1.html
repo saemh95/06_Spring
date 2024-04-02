@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thymeleaf ex 1</title>
+    <style>
+        .price {
+            color : red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thymeleaf ex 1</h1>
+    <pre>
+        Spring EL (expression language)
+        - ${key} : model, variable
+        th:text - preferences use = "value"
+        - "innerText" (text)
+    </pre>
+    <h4 th:text="${test1}">test1 value</h4>
+    <h4 th:text="${test2}">test2 value</h4>
+    <hr>
+    <h3>print one value</h3>
+    <pre>
+        th:block -> Thymeleaf -> tag (only one tag)
+        - Thymeleaf -> if no need for a HTML tag user th:block
+    </pre>
+    <th:block th:text="${productName}">Product Name</th:block> <br>
+    <span th:text="${productName}"></span>
+    <br>
+    price : <span class="price"><th:block th:text="${price}"></th:block></span>
+    <hr>
+    <h3>Multiple Value</h3>
+    <pre>
+        th:each="item : ${name}"
+    </pre>
+    <ul>
+        <li th:text="${fruitList}">Fruit List</li>
+        <li th:text="${fruitList[0]} ">0 index</li>
+        <li th:text="${fruitList[1]} ">1 index</li>
+        <li th:text="${fruitList[2]} ">2 index</li>
+    </ul>
+
+    <hr>
+    <h4>th:each</h4>
+    <ul>
+        <th:block th:each="fruit : ${fruitList}">
+            <li th:text="${fruit}"></li>
+        </th:block>
+    </ul>
+
+    <h3>print DTO value (sorry but went on and did List)</h3>
+    <ul>
+        <!-- <li th:text="${stdList}"></li>
+        <li th:text="${stdList.stdNo}"></li>
+        <li th:text="${stdList.stdName}"></li>
+        <li th:text="${stdList.stdAge}"></li> -->
+        <th:block th:each="stdList : ${stdList}">
+            <li th:text="${stdList}"></li>
+        </th:block>
+    </ul>
+
+    <hr>
+    <pre>
+        th:object pref + "field"
+    </pre>
+    <h4>th:object</h4>
+    <ul th:object="${std}">
+        <li th:text="*{stdNo}"></li>
+        <li th:text="*{stdName}"></li>
+        <li th:text="*{stdAge}"></li>
+    </ul>
+    <hr>
+    <h3>DTO -> List</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Student Number</th>
+                <th>Student Name</th>
+                <th>Student Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="std : ${stdList}" th:object="${std}">
+                <th th:text="*{stdNo}"></th>
+                <th th:text="${std.stdName}"></th>
+                <th th:text="*{stdAge}"></th>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <!-- <ul>
+        <th:block th:each="stdList : ${stdList}">
+            <li th:text="${stdList.stdNo}"></li>
+            <li th:text="${stdList.stdName}"></li>
+            <li th:text="${stdList.stdAge}"></li>
+            <br>
+        </th:block>
+    </ul> -->
+    <div style="height: 50vw;"></div>
+</body>
+</html>
