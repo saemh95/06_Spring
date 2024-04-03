@@ -39,6 +39,21 @@
                 <button>Submit</button>
             </form>
         </li>
+        <li>
+            <a href="/example/ex3">Thymleaf ex 3</a>
+        </li>
+        <li>
+            <a href="/example/ex4">Thymleaf ex 4</a>
+        </li>
+        <li>
+            <a href="/example/ex5">Thymeleaf ex 5</a>
+        </li>
     </ol>
+    <hr>
+    <h3>frament/temp.html -> add temp1</h3>
+    <th:block th:replace="~{fragments/temp :: temp1}"></th:block>
+    <div th:insert="~{fragments/temp :: temp1}"></div>
+    <div th:insert="~{fragments/temp :: temp2}"></div>
+    <footer th:insert="~{fragments/footer}"></footer>
 </body>
 </html>

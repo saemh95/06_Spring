@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thymeleaf ex 4</title>
+</head>
+<body>
+    <h1>Thymeleaf ex 4</h1>
+    <h4>th:if / th:unless</h4>
+    <pre>
+        th:if => true
+        th:unless => false
+    </pre>
+    <th:block th:if="${std == null}">
+        <h4>std X</h4>
+    </th:block>
+    <th:block th:unless="${std == null}">
+        <h4>std O</h4>
+    </th:block>
+    <hr>
+    <h3>th:if/th:unless -> parameter/value</h3>
+    <th:block th:if="${num}">
+        <h4 th:text="|num O = ${num}|">num</h4>
+    </th:block>
+    <th:block th:unless="${num}">
+        <h4 th:text="|num X = ${num}|">num</h4>
+    </th:block>
+    <h4 th:if="${temp}">${temp} O</h4>
+    <h4 th:unless="${temp}">${temp} X</h4>
+
+    <hr><hr>
+    <h3>th:switch/ th:case</h3>
+    <th:block th:switch="${num}">
+        <h4 th:case="100">100</h4>
+        <h4 th:case="200">200</h4>
+        <h4 th:case="300">300</h4>
+    </th:block>
+    <hr>
+    <h3>Ternary Operator</h3>
+    <h4 th:text="${std.stdAge == 30} ? '30 O' : '30 X'"></h4>
+    <h4 th:text="${std.stdAge == 16} ? '16 O' : '16 X'"></h4>
+    <hr>
+    <h3>Elvis</h3>
+    <h4 th:text="${std.stdName} ?: 'No name'"></h4>
+    <h4 th:text="${temp} ?: 'No name'"></h4>
+    <h3>No-Operation</h3>
+    <p th:text="${std} ?: _">No-Operation -> std</p>
+    <p th:text="${temp} ?: _">No-Operation -> temp</p>
+</body>
+</html>

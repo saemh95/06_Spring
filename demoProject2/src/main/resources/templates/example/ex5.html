@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thymeleaf ex 5</title>
+    <style>
+        .red {color:red}
+        .green {color:green}
+        .deco {text-decoration: underline}
+    </style>
+</head>
+<body>
+    <h1>Thymeleaf ex 5</h1>
+
+    <h3>th:inline = "javascript"</h3>
+
+    <h3 id="message"></h3>
+    <h3 id="num1"></h3>
+
+    <script th:inline="javascript">
+        const message = /*[[${message}]]*/ "message value";
+        const num1 = /*[[${num1}]]*/ 100;
+
+        document.querySelector("#message").innerText = message;
+        document.querySelector("#num1").innerText = num1;
+    </script>
+
+    <hr>
+    <h3>th:classappend</h3>
+    <h4 th:classappend="red">th:classappend testing</h4>
+    <h4 class="red" th:classappend="deco">th:classappend testing</h4>
+    <h4 class="red" th:classappend="green">th:classappend testing</h4>
+    <h4 th:classappend="${num1 gt 10000} ? red : green">th:classappend testing</h4>
+    <h4 th:classappend="${num1 lt 10000} ? red : green">th:classappend testing</h4>
+    <h4 class="deco" th:class="${num1 gt 1000} ? red : green">th:classappend testing</h4>
+    <hr>
+    <h3>search operator : ${param?.field}</h3>
+    <h4 th:text="${std?.stdNo}"></h4>
+    <h4 th:text="${std?.stdAge}"></h4>
+    <h4 th:text="${member?.memberName}"></h4>
+    <hr>
+    <h3>${#numbers.sequence(start, end, step)}</h3>
+    <ul>
+        <li th:each="i : ${#numbers.sequence(11, 20, 2)}" th:text="|test ${i}|"></li>
+    </ul>
+    
+</body>
+</html>

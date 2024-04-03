@@ -6,12 +6,14 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.kh.demo.model.dto.Student;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+
 
 @RequestMapping("example")
 @Controller
@@ -81,5 +83,43 @@ public class ExampleController {
 		return "example/ex2";
 	}
 	
+	@GetMapping("ex3")
+	public String ex3(HttpServletRequest req, Model model) {
+		
+		model.addAttribute("boardNo", 10);
+		model.addAttribute("key", "title");
+		model.addAttribute("query", "searchTitle");
+		
+		return "example/ex3";
+	}
+	
+	@GetMapping("ex3/{number}")
+	public String pathVariableTest(@PathVariable("number") int number) {
+		
+		log.debug("number : "+number);
+		
+		return "example/testResult";
+	}
+	
+	@GetMapping("ex4")
+	public String ex4(Model model) {
+		
+		Student std = new Student("1436", "squid", 16);
+		
+		model.addAttribute("std", std);
+		model.addAttribute("num", 100);
+		
+		return "example/ex4";
+	}
+	
+	@GetMapping("ex5")
+	public String ex5(Model model) {
+		
+		model.addAttribute("message", "Thymeleaf + JS");
+		model.addAttribute("num1", 124525);
+		Student std = new Student(null, null, 16);
+		model.addAttribute("std", std);
+		return "example/ex5";
+	}
 	
 }

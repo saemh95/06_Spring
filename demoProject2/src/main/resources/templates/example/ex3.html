@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thymeleaf ex 3</title>
+</head>
+<body>
+    <h1>Thymeleaf ex 3</h1>
+
+    <ul>
+        <li>
+            <a href="/board">Board</a>
+        </li>
+        <li>
+            <a href="/board?key=title&query=searchTitle">Board Search</a>
+        </li>
+        <li>
+            <a th:href="@{/board(key=${key}, query=${query})}">Thymeleaf Board Search</a>
+        </li>
+        <br>
+        <li>
+            PathVariable
+            <ul>
+                <li>
+                    <a href="/example/ex3/1">/example/ex3/1</a>
+                </li>
+                <li>
+                    <a href="/example/ex3/2">/example/ex3/2</a>
+                </li>
+                <li>
+                    <a href="/example/ex3/3">/example/ex3/3</a>
+                </li>
+                <li>
+                    <a th:href="@{/example/ex3/{number}(number=${boardNo})}">@{/example/ex3/{number}}</a>
+                </li>
+            </ul>
+
+        </li>
+    </ul>
+</body>
+</html>
