@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="">
-  
+<mapper namespace="edu.kh.todo.model.mapper.TodoMapper">
+  	<select id="selectAll" resultType="Todo">
+  		SELECT TODO_NO, TODO_TITLE, TODO_CONTENT, COMPLETE, 
+		TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI:SS') AS REG_DATE FROM TB_TODO
+		ORDER BY TODO_NO
+  	</select>
+  	<select id="getCompleteCount" resultType="_int">
+  		SELECT COUNT (*) FROM TB_TODO WHERE COMPLETE ='Y'
+  	</select>
+  	
+  	<!-- 
+  		#{} -> send to SQL with ''
+  		${} -> send to SQL witout '
+  		when to use ${}
+  		1) int
+  		2) change type
+  	 -->
+  	<insert id="addTodo" parameterType="Todo">
+  		INSERT INTO TB_TODO VALUES (SEQ_TODO_NO.NEXTVAL, #{todoTitle}, #{todoContent}, DEFAULT, DEFAULT)
+  	</insert>
 </mapper>
