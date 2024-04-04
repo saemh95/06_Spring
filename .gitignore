@@ -6,6 +6,7 @@ MANIFEST.MF
 settings.json
 *.log
 config.properties
+mybatis-config.xml
 
 
 driver.xml
