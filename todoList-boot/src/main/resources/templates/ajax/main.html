@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/ajax-main.css">
-        <link rel="stylesheet" href="/css/main.css">
+        <!-- <link rel="stylesheet" href="/css/main.css"> -->
         
         <title>Ajax-Main</title>
     </head>
@@ -47,6 +47,29 @@
                 
             </tbody>
         </table>
+
+        <div id="popupLayer"  class="popup-hidden">
+            <div class="popup-row">
+              Number : <span id="popupTodoNo"></span>
+              |
+              Title : <span id="popupTodoTitle"></span>
+              <span id="popupClose">&times;</span>
+            </div>
+            <div class="popup-row">
+              Complete(Y/N) : <span id="popupComplete"></span>
+              |
+              Date Created : <span id="popupRegDate"></span>
+            </div>
+            <div class="popup-row">
+              [Content]
+              <div id="popupTodoContent"></div>
+            </div>
+            <div class="btn-container">
+              <button id="changeComplete">Change complete</button>
+              <button id="updateView">Update</button>
+              <button id="deleteBtn">Delete</button>
+            </div>
+          </div>
 
         <script src="/js/ajax-main.js"></script>
     </body>

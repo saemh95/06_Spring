@@ -4,7 +4,20 @@ const reloadBtn = document.getElementById("reloadBtn");
 const todoTitle = document.getElementById("todoTitle");
 const todoContent = document.getElementById("todoContent");
 const addBtn = document.getElementById("addBtn");
+
 const tbody = document.querySelector("#tbody");
+
+const popupLayer = document.getElementById("popupLayer");
+const popupTodoNo = document.querySelector("#popupTodoNo");
+const popupTodoTitle = document.querySelector("#popupTodoTitle");
+const popupComplete = document.getElementById("popupComplete");
+const popupRegDate = document.querySelector("#popupRegDate");
+const popupTodoContent = document.querySelector("#popupTodoContent");
+const popupClose = document.getElementById("popupClose");
+
+const changeComplete = document.querySelector("#changeComplete");
+const deleteBtn = document.getElementById("deleteBtn");
+const updateView = document.getElementById("updateVIew");
 
 // Promise
 function getTotalCount() {
@@ -58,6 +71,25 @@ addBtn.addEventListener("click", () => {
     ;
 });
 
+const selectTodo = (url) => {
+    fetch(url).then(resp => resp.json()).then(todo => {
+        // const todo = JSON.parse(result);
+        console.log(todo);
+        
+        popupTodoNo.innerText = todo.todoNo;
+        popupTodoTitle.innerText = todo.todoTitle;
+        popupComplete.innerText = todo.complete;
+        popupRegDate.innerText = todo.regDate;
+        popupTodoContent.innerText = todo.todoContent;
+
+        popupLayer.classList.remove("popup-hidden");
+    });
+}
+
+popupClose.addEventListener("click", () => {
+    popupLayer.classList.add("popup-hidden");
+});
+
 const selectTodoList = () => {
     fetch("/ajax/selectList").then(resp => resp.text()).then(result => {
         // console.log(result);
@@ -82,9 +114,10 @@ const selectTodoList = () => {
                     a.addEventListener("click", (e) => {
                         e.preventDefault();
                         
-                        // selectTodo(e.target.href);
+                        selectTodo(e.target.href);
                     });
                     continue;
+                    
                 }
                 td.innerText = todo[key];
                 tr.append(td);
@@ -93,6 +126,56 @@ const selectTodoList = () => {
         }
     });
 }
+
+deleteBtn.addEventListener("click", () => {
+    
+    if(!confirm("Confirm Delete")) {return;}
+    
+    const todoNo = popupTodoNo.innerText;
+
+    fetch("/ajax/delete", {
+        method : "DELETE",
+        headers : {"Content-type" : "application/json"},
+        body : todoNo
+    }).then(resp => resp.text()).then(result => {
+        if(result>0) {
+            alert("Delete Completed");
+            popupLayer.classList.add("popup-hidden");
+            getTotalCount();
+            selectTodoList();
+            getCompletCount();
+        } else {
+            alert("Delete Canceled");
+        }
+    });
+
+});
+
+changeComplete.addEventListener("click", () => {
+
+    let currentComplete = popupComplete.innerText == 'Y' ? 'N' : 'Y';
+    const param = {
+        "todoNo" : popupTodoNo.innerText,
+        "complete" : currentComplete
+    };
+
+    fetch("/ajax/change", {
+        method : "PUT",
+        headers : {"Content-type" : "application/json"},
+        body : JSON.stringify(param)
+    }).then(response => response.text()).then(result=> {
+        //console.log(popupComplete.innerText);
+
+        if(result > 0) {
+            // currentComplete = (currentComplete == 'Y' ? 'Y' : 'N' );
+            // console.log("teest::", currentComplete);
+            popupComplete.innerText = currentComplete;
+            selectTodoList();
+            getTotalCount();
+            getCompletCount();
+        }
+    });
+});
 
 selectTodoList();
 getTotalCount();

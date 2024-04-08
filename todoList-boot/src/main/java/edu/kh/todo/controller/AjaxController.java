@@ -5,10 +5,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.todo.model.dto.Todo;
@@ -72,6 +75,28 @@ public class AjaxController {
 		return todoList;
 	}
 	
+	@ResponseBody
+	@GetMapping("detail")
+	public Todo selectTodo(@RequestParam("todoNo") int todoNo) {
+		
+		
+		
+		return service.getContent(todoNo);
+	}
 	
+	@ResponseBody
+	@DeleteMapping("delete")
+	public int deleteTodo(@RequestBody int todoNo) {
+		
+		return service.todoDelete(todoNo);
+		
+	}
 	
+	@ResponseBody
+	@PutMapping("change")
+	public int changeComplete(@RequestBody Todo todo) {
+//		log.debug("complete : " + todo.getComplete());
+//		log.debug("todoNo : " + todo.getTodoNo());
+		return service.changeComplete(todo);
+	}
 }

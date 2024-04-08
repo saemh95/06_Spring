@@ -26,4 +26,6 @@ public interface TodoMapper {
 
 	int getTotalCount();
 
+	int changeComplete(int todoNo);
+
 }
