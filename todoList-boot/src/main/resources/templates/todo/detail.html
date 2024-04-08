@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Detail</title>
+    <link rel="stylesheet" href="/css/detail.css">
+</head>
+<body>
+    <h1>Todo Detail</h1>
+    <table>
+        <h3 th:text="|Todo Title : ${todo.todoTitle} / Todo Number : ${todo.todoNo}|"></h3>
+        <thead>
+            <th>Todo Detail</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td th:text="${todo.todoContent}" class="todo-content"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <th>Todo Complete (Y/N)</th>
+            <th>Todo Registered Date</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <button type="button" th:text="${todo.complete}" th:data-todo-no="${todo.todoNo}" class="complete-btn">${todo.todoNo}</button>
+                </td>
+                <td th:text="${todo.regDate}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="goToList">Back</button>
+    <button id="updateBtn" th:data-todo-no="${todo.todoNo}">Edit</button>
+    <button id="deleteBtn" th:data-todo-no="${todo.todoNo}">Delete</button>
+    
+    <script src="/js/detail.js"></script>
+    <th:block th:replace="~{common/footer}"></th:block>
+</body>
+</html>

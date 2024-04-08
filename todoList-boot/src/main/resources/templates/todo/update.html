@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="|${todo.todoNo} Todo Update|"></title>
+    <link rel="stylesheet" href="/css/detail.css">
+</head>
+<body>
+    <h1 th:text="|# ${todo.todoNo} Todo Update|"></h1>
+    <hr>
+    <form action="/todo/update" method="post">
+        <div>
+            Title : <input type="text" name="todoTitle" th:value="${todo.todoTitle}">
+        </div>
+        <div>
+            <textarea name="todoContent" cols="50" rows="5" placeholder="Write Todo Content" th:text="${todo.todoContent}"></textarea>
+        </div>
+        <button id="updateBtn">Update Todo</button>
+        <input type="hidden" name="todoNo" th:value="${param.todoNo}">
+    </form>
+    <!-- <script src="/js/update.js"></script> -->
+    <th:block th:replace="~{common/footer}"></th:block>
+</body>
+</html>

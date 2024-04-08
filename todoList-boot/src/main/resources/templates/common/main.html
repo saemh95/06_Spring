@@ -4,78 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TodoList-boot</title>
-    <style>
-        td, th {
-            padding: 15px;
-            border: 2px solid burlywood;
-            border-radius: 5px;
-            margin: 3px;
-            text-align: center;
-        }
-        th {
-            font-weight: bolder;
-            font-size: large;
-            border: 2px solid brown;
-        }
-        table {
-            border: 3px solid brown; padding: 10px;
-            border-radius: 15px;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        button {
-            background-color: green; 
-            cursor: pointer;
-            transition: background-color 0.3s;
-            border-color: transparent;  
-            font-weight: bold;  
-            color: black;
-        }
-        button:hover {
-            background-color: green;
-            border: 1px solid black;
-            color: white; 
-            transition: background-color 0.5s;
-            font-weight: bold;
-
-        }
-        div {
-            display: flex;          
-            justify-content: center;
-            align-items: center;    
-            min-height: 2vw;      
-            text-align: center;     
-            flex-direction: column; 
-            border-radius: 15px;
-        }
-        input[type="text"], input[type="password"], button {
-            border: 1px solid;
-            border-radius: 10px;
-            padding: 1em;
-            margin-top: 0.5em;
-            background-color: transparent;
-            color: "black";
-            width: 50%;
-        }
-
-    </style>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
     <h1>Todo List</h1>
 
     <form action="/todo/add" method="post">
-        <h4>Add Todo</h4>
+        <h3>Add Todo</h3>
         <div>
             Title : <input type="text" name="todoTitle">
         </div>
         <div>
             <textarea name="todoContent" cols="50" rows="5" placeholder="Write Todo Content"></textarea>
         </div>
-        <button>Add Todo</button>
+        <button id="addBtn">Add Todo</button>
     </form>
 
     <h3 th:text="|Total Todo Count : ${#lists.size(todoList)} / Finished Todo : ${count}|"></h3>
@@ -89,7 +31,9 @@
         <tbody>
             <tr th:each="todoList : ${todoList}" th:object="${todoList}">
                 <td th:text="*{todoNo}"></td>
-                <td th:text="*{todoTitle}"></td>
+                <td>
+                    <a th:href="@{/todo/detail(todoNo=*{todoNo})}" th:text="*{todoTitle}"></a>
+                </td>
                 <td th:text="*{complete}"></td>
                 <td th:text="*{regDate}"></td>
             </tr>
