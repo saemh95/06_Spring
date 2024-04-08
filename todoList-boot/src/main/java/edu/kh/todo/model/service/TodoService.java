@@ -19,5 +19,9 @@ public interface TodoService {
 	int todoUpdate(Todo todo);
 
 	int todoDelete(int todoNo);
+
+	int getTotalCount();
+
+	List<Todo> selectList();
 	
 }

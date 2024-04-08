@@ -34,4 +34,7 @@
   	<delete id="todoDelete" parameterType="_int">
   		DELETE FROM TB_TODO WHERE TODO_NO = #{todoNo}
   	</delete>
+  	<select id="getTotalCount" resultType="_int">
+  		SELECT COUNT(*) FROM TB_TODO
+  	</select>
 </mapper>

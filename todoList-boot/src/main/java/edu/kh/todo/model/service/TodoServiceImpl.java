@@ -1,5 +1,6 @@
 package edu.kh.todo.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +64,18 @@ public class TodoServiceImpl implements TodoService{
 	public int todoDelete(int todoNo) {
 		
 		return mapper.todoDelete(todoNo);
+	}
+
+	@Override
+	public int getTotalCount() {
+		
+		return mapper.getTotalCount();
+	}
+
+	@Override
+	public List<Todo> selectList() {
+		
+		return mapper.selectAll();
 	}
 	
 	

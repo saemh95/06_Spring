@@ -1,11 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/ajax-main.css">
+        <link rel="stylesheet" href="/css/main.css">
+        
+        <title>Ajax-Main</title>
+    </head>
+    <body>
+        
+        <h1>Todo List - Ajax-Main</h1>
+        <pre>
+            What is Ajax?
+            (Asynchronous JavaScript & XML)
+        </pre>
+        
+        <hr>
+        <div>
+            <h3>Add Todo</h3>
+            <div>
+                Title : <input type="text" id="todoTitle">
+            </div>
+            <div>
+                <textarea id="todoContent" cols="50" rows="5" placeholder="Write Todo Content"></textarea>
+            </div>
+            <button id="addBtn">Add</button>
+        </div>
+
+        <hr>
+        <div id="todoHeader">
+            Total todo Count : <span id="totalCount">0</span>
+            /
+            Completed Todo : <span id="completeCount">0</span>
+        </div>
+        <button id="reloadBtn" class="btn-container">Refresh</button>
+
+        <table>
+            <thead>
+                <th>Todo Number</th>
+                <th>Todo Title</th>
+                <th>Todo Complete (Y/N)</th>
+                <th>Todo Registered Date</th>
+            </thead>
+            <tbody id="tbody">
+                
+            </tbody>
+        </table>
+
+        <script src="/js/ajax-main.js"></script>
+    </body>
 </html>
