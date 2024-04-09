@@ -17,7 +17,13 @@ const popupClose = document.getElementById("popupClose");
 
 const changeComplete = document.querySelector("#changeComplete");
 const deleteBtn = document.getElementById("deleteBtn");
-const updateView = document.getElementById("updateVIew");
+const updateView = document.getElementById("updateView");
+
+const updateLayer = document.querySelector("#updateLayer");
+const updateTitle = document.querySelector("#updateTitle");
+const updateContent = document.querySelector("#updateContent");
+const updateBtn = document.querySelector("#updateBtn");
+const updateCancel = document.querySelector("#updateCancel");
 
 // Promise
 function getTotalCount() {
@@ -74,7 +80,7 @@ addBtn.addEventListener("click", () => {
 const selectTodo = (url) => {
     fetch(url).then(resp => resp.json()).then(todo => {
         // const todo = JSON.parse(result);
-        console.log(todo);
+        // console.log(todo);
         
         popupTodoNo.innerText = todo.todoNo;
         popupTodoTitle.innerText = todo.todoTitle;
@@ -83,6 +89,8 @@ const selectTodo = (url) => {
         popupTodoContent.innerText = todo.todoContent;
 
         popupLayer.classList.remove("popup-hidden");
+
+        updateLayer.classList.add("popup-hidden");
     });
 }
 
@@ -170,9 +178,66 @@ changeComplete.addEventListener("click", () => {
             // currentComplete = (currentComplete == 'Y' ? 'Y' : 'N' );
             // console.log("teest::", currentComplete);
             popupComplete.innerText = currentComplete;
+
             selectTodoList();
-            getTotalCount();
-            getCompletCount();
+            // getTotalCount();
+            // getCompletCount();
+
+            const count = Number(completeCount.innerText);
+            if(complete === 'Y') completeCount.innerText = count + 1;
+            else completeCount.innerText = count - 1;
+
+        } else {
+            alert("Change Complete Error");
+        }
+    }); 
+});
+
+updateView.addEventListener("click", () => {
+
+    popupLayer.classList.add("popup-hidden");
+    updateLayer.classList.remove("popup-hidden");
+
+    updateTitle.value = popupTodoTitle.innerText;
+    updateContent.value = popupTodoContent.innerHTML.replaceAll("<br>", "\n");
+    // HTML -> line changeing -> <br> to
+
+    updateBtn.setAttribute("data-todo-no", popupTodoNo.innerText);
+    
+});
+
+updateCancel.addEventListener("click", () => {
+    updateLayer.classList.add("popup-hidden");
+    popupLayer.classList.remove("popup-hidden");
+    alert("Update Canceled");
+})
+
+updateBtn.addEventListener("click", e => {
+    const param = {
+        "todoNo" : e.target.dataset.todoNo,
+        "todoTitle" : updateTitle.value,
+        "todoContent" : updateContent.value
+    }
+
+    fetch("/ajax/update", {
+        method : "PUT",
+        headers : {"Content-type" : "application/json"},
+        body : JSON.stringify(param)
+    }).then(resp => resp.text()).then(result => {
+        if (result>0) {
+
+            updateLayer.classList.add("popup-hidden");
+            popupLayer.classList.remove("popup-hidden");
+
+            // remove data
+            updateBtn.removeAttribute("data-todo-no");
+
+            popupTodoTitle.innerText = updateTitle.value;
+            popupTodoContent.innerHTML = updateContent.value.replaceAll("\n", "<br>");
+            selectTodoList();
+            alert("Update Complete");
+        } else {
+            alert("Update Error");
         }
     });
 });

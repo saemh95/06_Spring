@@ -5,7 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/ajax-main.css">
         <!-- <link rel="stylesheet" href="/css/main.css"> -->
-        
+        <style>
+            th, td {
+                border: 1px solid black;
+                padding: 3px;
+                text-align: center;
+            }
+        </style>
         <title>Ajax-Main</title>
     </head>
     <body>
@@ -36,7 +42,7 @@
         </div>
         <button id="reloadBtn" class="btn-container">Refresh</button>
 
-        <table>
+        <table style="border: 1px solid black; border-collapse: collapse;">
             <thead>
                 <th>Todo Number</th>
                 <th>Todo Title</th>
@@ -70,6 +76,20 @@
               <button id="deleteBtn">Delete</button>
             </div>
           </div>
+
+          <div id="updateLayer" class="popup-hidden">
+            <div class="popup-row">
+              Title : <input type="text" id="updateTitle">
+            </div>
+            <div class="popup-row">
+              <textarea id="updateContent" cols="45" rows="5"></textarea>
+            </div>
+            <div class="btn-container">
+              <button id="updateBtn">Update</button>     
+              <button id="updateCancel">Cancel</button>     
+            </div>
+          </div>
+         
 
         <script src="/js/ajax-main.js"></script>
     </body>

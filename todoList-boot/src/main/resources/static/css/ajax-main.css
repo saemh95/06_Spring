@@ -97,5 +97,8 @@
     align-items: center;
   }
   
+  #updateContent {
+    resize: none;
+  }
   
   #updateTitle{ width: 300px; }

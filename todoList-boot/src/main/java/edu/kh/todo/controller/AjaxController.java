@@ -99,4 +99,10 @@ public class AjaxController {
 //		log.debug("todoNo : " + todo.getTodoNo());
 		return service.changeComplete(todo);
 	}
+	
+	@ResponseBody
+	@PutMapping("update")
+	public int updateView(@RequestBody Todo todo) {
+		return service.todoUpdate(todo);
+	}
 }
