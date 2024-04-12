@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<!-- Header X for mail -->
+<body>
+    <div style="display: flex; flex-wrap: wrap;">
+        <!-- Content-ID -> img first in service -->
+        <div style="flex:1 1 auto;">
+
+            <img src="cid:logo" width="200px">
+            <h3>
+                Verify your code in time
+                <br>
+                Verification Code below
+            </h3>
+            <h3 style="text-align: center; border: 3px solid black; color: blue; width: 400px; padding: 10px;">
+                <th:block th:text="${authKey}"></th:block>
+            </h3>
+        </div>
+    </div>
+</body>
+</html>

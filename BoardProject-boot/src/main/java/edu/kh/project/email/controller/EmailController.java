@@ -1,6 +1,7 @@
 package edu.kh.project.email.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.project.email.model.service.EmailService;
 import lombok.RequiredArgsConstructor;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("email")
@@ -40,12 +40,25 @@ public class EmailController {
 //		this.service = service;
 //		this.service2 = service2;
 //	}
+	
 	@ResponseBody
 	@PostMapping("signup")
 	public int signup(@RequestBody String email) {
 		
 		String authKey = service.sendEmail("signup", email);
 		
+		if(authKey != null) {
+			return 1; // email -> success
+		} 
+		
+		// email -> fail
 		return 0;
+	}
+	
+	@ResponseBody
+	@PostMapping("checkAuthKey")
+	public int checkAuthKey(@RequestBody Map<String, Object> map) {
+		
+		return service.checkAuthKey(map);
 	}
 }

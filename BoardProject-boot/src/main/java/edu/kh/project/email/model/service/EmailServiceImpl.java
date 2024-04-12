@@ -1,11 +1,16 @@
 package edu.kh.project.email.model.service;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import edu.kh.project.email.model.mapper.EmailMapper;
 import jakarta.mail.internet.MimeMessage;
@@ -18,6 +23,9 @@ public class EmailServiceImpl implements EmailService{
 
 	private final EmailMapper mapper;
 	private final JavaMailSender mailSender;
+	
+//	thymeleaf template engine -> html -> java
+	private final SpringTemplateEngine templateEngine;
 	
 	@Override
 	public String sendEmail(String htmlName, String email) {
@@ -40,7 +48,10 @@ public class EmailServiceImpl implements EmailService{
 			helper.setTo(email);
 			helper.setSubject(subject);
 			
-			helper.setText(authKey);
+//			parameter -> html (bool) => html encode T/F
+			helper.setText(loadHtml(authKey, htmlName), true);
+			
+			helper.addInline("logo", new ClassPathResource("static/images/logo.jpg"));
 			
 			mailSender.send(mimeMessage);
 			
@@ -50,8 +61,50 @@ public class EmailServiceImpl implements EmailService{
 			return null;
 		}
 		
-		return null;
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("authKey", authKey);
+		map.put("email", email);
+		
+//		UPDATE -> return 1; ->SQL true for email
+//		INSERT -> return 0; ->SQL false for email
+		
+		int result = mapper.updateAuthKey(map);
+		
+		if (result == 0) {
+			result = mapper.insertAuthKey(map);
+		}
+		
+		if (result == 0) return null;
+		
+		return authKey;
 	}
+	
+	
+	@Override
+	public int checkAuthKey(Map<String, Object> map) {
+		
+		return mapper.checkAuthKey(map);
+	}
+
+	
+	
+	
+	
+//	HTML(file) -> toString (w/ thymeleaf)
+	private String loadHtml(String authKey, String htmlName) {
+		
+//		org.thymeleaf.Context
+		Context context = new Context();
+		
+		context.setVariable("authKey", authKey);
+		
+		
+		return templateEngine.process("email/" + htmlName, context);
+	}
+
+	
+	
+	
 	
 	/** 인증번호 생성 (영어 대문자 + 소문자 + 숫자 6자리)
 	* @return authKey

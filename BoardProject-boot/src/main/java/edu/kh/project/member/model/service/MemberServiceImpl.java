@@ -49,6 +49,12 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mapper.checkEmail(memberEmail);
 	}
+
+	@Override
+	public int checkNickname(String memberNickname) {
+		
+		return mapper.checkNickname(memberNickname);
+	}
 	
 	
 //	BCrypt -> Spring Security lib
