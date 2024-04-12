@@ -36,57 +36,6 @@ const checkObj = {
     "authKey" : false
 }
 
-const memberEmail = document.querySelector("#memberEmail");
-const emailMessage = document.querySelector("#emailMessage");
-
-memberEmail.addEventListener("input", e => {
-
-    checkObj.authKey = false;
-    document.querySelector("#authKeyMessage").innerText="";
-
-    const inputEmail = e.target.value;
-    // console.log(inputEmail);
-
-
-    if (inputEmail.trim().length === 0) {
-        emailMessage.innerText = "Please enter an email address where you can receive mail.";
-
-        emailMessage.classList.remove('confirm', 'error');
-
-        checkObj.memberEmail = false;
-
-        memberEmail.value = "";
-
-        return;
-    }
-
-    const regExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!regExp.test(inputEmail)) {
-        emailMessage.innerText = "Use correct email";
-        emailMessage.classList.add('error');
-        emailMessage.classList.remove('confirm');
-        checkObj.memberEmail = false;
-        return;
-    } 
-
-    fetch("/member/checkEmail?memberEmail=" + inputEmail).then(resp => resp.text()).then(count=> {
-        if (count==1) {
-            emailMessage.innerText = "Email already in use";
-            emailMessage.classList.add('error');
-            emailMessage.classList.remove('confirm');
-            checkObj.memberEmail = false;
-            return;
-        }
-        
-        emailMessage.innerText = "Email Confirmed";
-        emailMessage.classList.add('confirm');
-        emailMessage.classList.remove('error');
-        checkObj.memberEmail = true;
-    }).catch(error => {
-        console.log(error);
-    });
-});
-
 const sendAuthKeyBtn = document.querySelector("#sendAuthKeyBtn");
 const authKey = document.querySelector("#authKey");
 const checkAuthKeyBtn = document.querySelector("#checkAuthKeyBtn");
@@ -160,6 +109,60 @@ function addZero(number) {
     if(number < 10 ) return "0" + number;
     else return number;
 }
+
+const memberEmail = document.querySelector("#memberEmail");
+const emailMessage = document.querySelector("#emailMessage");
+
+memberEmail.addEventListener("input", e => {
+
+    checkObj.authKey = false;
+    document.querySelector("#authKeyMessage").innerText="";
+    clearInterval(authTimer);
+    const inputEmail = e.target.value;
+    // console.log(inputEmail);
+
+
+    if (inputEmail.trim().length === 0) {
+        emailMessage.innerText = "Please enter an email address where you can receive mail.";
+
+        emailMessage.classList.remove('confirm', 'error');
+
+        checkObj.memberEmail = false;
+
+        memberEmail.value = "";
+
+        return;
+    }
+
+    const regExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!regExp.test(inputEmail)) {
+        emailMessage.innerText = "Use correct email";
+        emailMessage.classList.add('error');
+        emailMessage.classList.remove('confirm');
+        checkObj.memberEmail = false;
+        return;
+    } 
+
+    fetch("/member/checkEmail?memberEmail=" + inputEmail).then(resp => resp.text()).then(count=> {
+        if (count==1) {
+            emailMessage.innerText = "Email already in use";
+            emailMessage.classList.add('error');
+            emailMessage.classList.remove('confirm');
+            checkObj.memberEmail = false;
+            return;
+        }
+        
+        emailMessage.innerText = "Email Confirmed";
+        emailMessage.classList.add('confirm');
+        emailMessage.classList.remove('error');
+        checkObj.memberEmail = true;
+    }).catch(error => {
+        console.log(error);
+    });
+});
+
+
+
 
 checkAuthKeyBtn.addEventListener("click", () => {
 
@@ -327,6 +330,31 @@ memberTel.addEventListener("input", e => {
     telMessage.classList.add('confirm');
     telMessage.classList.remove('error');
     checkObj.memberTel = true;
-    console.log(checkObj);
+    // console.log(checkObj);
 });
 
+const signUpForm = document.querySelector("#signUpForm");
+
+signUpForm.addEventListener("submit", (e) => {
+    
+    for (let key in checkObj) {
+        if (!checkObj[key]) {
+            let str;
+
+            switch(key) {
+                case "memberEmail" : str = "Email Error"; break;
+                case "memberPw" : str = "Password Not Confirmed"; break;
+                case "memberPwConfirm" : str = "Password Not Confirmed"; break;
+                case "memberNickname" : str = "Nickname Error"; break;
+                case "memberTel" : str = "Phone Number Error"; break;
+                case "authKey" : str = "Email Verification Error"; break;
+            }
+            alert(str);
+            document.getElementById(key).focus();
+            e.preventDefault();
+
+            return;
+        }
+    }
+
+});

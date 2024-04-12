@@ -9,5 +9,7 @@ public interface MemberService {
 	int checkEmail(String memberEmail);
 
 	int checkNickname(String memberNickname);
+
+	int signup(Member inputMember, String[] memberAddress);
 	
 }

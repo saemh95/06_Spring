@@ -55,6 +55,25 @@ public class MemberServiceImpl implements MemberService{
 		
 		return mapper.checkNickname(memberNickname);
 	}
+
+	@Override
+	public int signup(Member inputMember, String[] memberAddress) {
+
+		if (!inputMember.getMemberAddress().equals(",,")) {
+			
+			String address = String.join("^^^", memberAddress);
+			inputMember.setMemberAddress(address);
+			
+		} else {
+			inputMember.setMemberAddress(null);
+		}
+		
+		String inputPw = bCrypt.encode(inputMember.getMemberPw());
+		
+		inputMember.setMemberPw(inputPw);
+		
+		return mapper.signup(inputMember);
+	}
 	
 	
 //	BCrypt -> Spring Security lib

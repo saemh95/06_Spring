@@ -10,4 +10,8 @@
   <select id="checkNickname" resultType="_int">
   		SELECT COUNT(*) FROM "MEMBER" WHERE MEMBER_DEL_FL = 'N' AND MEMBER_NICKNAME = #{memberNickname}
   </select>
+  <insert id="signup" parameterType="Member">
+  		INSERT INTO "MEMBER" VALUES (SEQ_MEMBER_NO.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberNickname}, #{memberTel}, #{memberAddress}, NULL, SYSDATE, DEFAULT, DEFAULT)
+  		
+  </insert>
 </mapper>

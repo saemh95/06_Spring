@@ -90,9 +90,26 @@ public class MemberController {
 		return "member/signup";
 	}
 	
+//	signup btn form
 	@PostMapping("signup")
-	public String singup() {
-		return "redirect:/";
+	public String singup(Member inputMember, @RequestParam("memberAddress") String[] memberAddress, RedirectAttributes ra) {
+		
+		int result = service.signup(inputMember, memberAddress);
+		
+		String path = null;
+		String message = null;
+		
+		if (result > 0 ) {
+			path = "/";
+			message = inputMember.getMemberNickname() + " Welcome To our Family :)";
+		} else {
+			path = "signup";
+			message = "Signup Error";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:" + path;
 	}
 	
 	@ResponseBody
@@ -106,8 +123,8 @@ public class MemberController {
 	@GetMapping("checkNickname")
 	public int checkNickname(@RequestParam("memberNickname") String memberNickname) {
 		
+		
 		return service.checkNickname(memberNickname);
 	}
-	
 	
 }
