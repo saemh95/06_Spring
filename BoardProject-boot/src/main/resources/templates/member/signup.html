@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원 가입</title>
+
+  <th:block th:replace="~{common/common}"></th:block>
+  <link rel="stylesheet" href="/css/member/signup-style.css">
+  <!-- 회원가입 페이지만의 css 추가 -->
+</head>
+<body>
+
+  <main>
+    <!-- 헤더 추가 -->
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <section class="signUp-content">
+
+      <form action="/member/signup" method="POST" name="signUpForm" id="signUpForm">
+
+        <!-- 이메일 입력 -->
+        <label for="memberEmail">
+          <span class="required">*</span> ID(Email)
+        </label>
+
+        <div class="signUp-input-area">
+          <input type="text" name="memberEmail" id="memberEmail" 
+          placeholder="ID(Email)" maxlength="30" autocomplete="off">
+          
+          <button id="sendAuthKeyBtn" type="button">Send Verification Code</button>
+        </div>
+        
+        <span class="signUp-message" id="emailMessage">Please enter an email address where you can receive mail.</span>
+
+
+
+        <!-- 인증번호 입력 -->
+        <label for="emailCheck">
+          <span class="required">*</span> Verification Number
+        </label>
+
+        <div class="signUp-input-area">
+          <input type="text" name="authKey" id="authKey" placeholder="Verification Number" maxlength="6" autocomplete="off" >
+          
+          <button id="checkAuthKeyBtn" type="button">Verify</button>
+        </div>
+
+        <span class="signUp-message" id="authKeyMessage"></span>
+                        <!-- 인증번호가 일치하지 않습니다 -->
+        
+
+        <!-- 비밀번호/비밀번호 확인 입력 -->
+        <label for="memberPw">
+          <span class="required">*</span> Password
+        </label>
+
+        <div class="signUp-input-area">
+          <input type="password" name="memberPw" id="memberPw" 
+          placeholder="Password" maxlength="20" >
+        </div>
+
+        <div class="signUp-input-area">
+          <input type="password" name="memberPwConfirm" id="memberPwConfirm" 
+          placeholder="Confirm Password" maxlength="20" >
+        </div>
+
+        <!-- 정규 표현식 -->
+        <span class="signUp-message" id="pwMessage">Please enter between 6 to 20 characters including letters, numbers, and special characters (!, @, #, -, _).</span>
+
+        <!-- 닉네임 입력 -->
+        <label for="memberNickname">
+          <span class="required">*</span> Nickname
+        </label>
+
+        <div class="signUp-input-area">
+          <input type="text" name="memberNickname" id="memberNickname" placeholder="Nickname" maxlength="10" >
+        </div>
+
+        <span class="signUp-message" id="nickMessage">only letters & numbers 2~10</span>
+
+
+        <!-- 전화번호 입력 -->
+        <label for="memberTel">
+          <span class="required">*</span> Phone Number
+        </label>
+
+        <div class="signUp-input-area">
+          <input type="text" name="memberTel" id="memberTel" placeholder="(only number)" maxlength="11">
+        </div>
+
+        <span class="signUp-message" id="telMessage">Phone Number (only number)</span>
+
+
+        <!-- 주소 입력 -->
+        <label for="memberAddress">Address</label>
+
+        <div class="signUp-input-area">
+          <input type="text" name="memberAddress" placeholder="Post Code" maxlength="6" id="postcode">                       
+          
+          <button type="button" id="searchAddress">Search</button>
+        </div>
+
+        <div class="signUp-input-area">
+          <input type="text" name="memberAddress" placeholder="State/City" id="address">
+        </div>
+
+        <div class="signUp-input-area">
+          <input type="text" name="memberAddress" placeholder="Street/Unit" id="detailAddress">
+        </div>
+
+        <button id="signUpBtn">Signup</button>
+      </form>
+    </section>
+    
+  </main>
+
+  <!-- 푸터 추가 -->
+  <th:block th:replace="~{common/footer}"></th:block>
+
+  <!-- 다음 주소 API 추가 -->
+
+  <!-- 회원 가입 JS 추가 -->
+
+  <script src="/js/member/signup.js"></script>
+</body>
+</html>

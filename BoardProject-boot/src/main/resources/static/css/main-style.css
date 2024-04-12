@@ -361,7 +361,7 @@
   }
   
   #logoutBtn:active{
-    transform: scale(0.8); /* 요소 크기를 0.8배로 변경 */
+    transform: scale(0.9); /* 요소 크기를 0.8배로 변경 */
   }
   
   /* 이메일 */

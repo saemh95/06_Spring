@@ -8,5 +8,7 @@ import edu.kh.project.member.model.dto.Member;
 public interface MemberMapper {
 
 	Member login(String memberEmail);
+
+	int checkEmail(String memberEmail);
 	
 }

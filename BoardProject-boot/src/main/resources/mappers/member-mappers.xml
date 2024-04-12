@@ -4,4 +4,7 @@
   <select id="login" parameterType="string" resultType="Member">
   		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_PW, MEMBER_NICKNAME, MEMBER_TEL, MEMBER_ADDRESS, PROFILE_IMG, TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') AS ENROLL_DATE, AUTHORITY  FROM "MEMBER" WHERE MEMBER_EMAIL = #{memberEmail} AND MEMBER_DEL_FL = 'N'
   </select>
+  <select id="checkEmail" resultType="_int">
+  		SELECT COUNT(*) FROM "MEMBER" WHERE MEMBER_DEL_FL = 'N' AND MEMBER_EMAIL = #{memberEmail}
+  </select>
 </mapper>
