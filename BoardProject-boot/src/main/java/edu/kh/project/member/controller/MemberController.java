@@ -68,7 +68,7 @@ public class MemberController {
 			resp.addCookie(cookie);
 			
 		}
-		
+//		log.debug("loginMember : " + loginMember);
 		return "redirect:/";
 	}
 	
