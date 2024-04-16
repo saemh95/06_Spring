@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.member.model.dto.Member;
 import edu.kh.project.mypage.model.service.MypageService;
+import jakarta.servlet.annotation.MultipartConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 
 @Slf4j
@@ -140,7 +144,7 @@ public class MypageController {
 			@SessionAttribute("loginMember") Member loginMember, 
 			RedirectAttributes ra, SessionStatus status) {
 		
-		log.debug("loginMember : " + loginMember);
+//		log.debug("loginMember : " + loginMember);
 		
 		int memberNo = loginMember.getMemberNo();
 		
@@ -161,6 +165,35 @@ public class MypageController {
 		ra.addFlashAttribute("message", message);
 		
 		return "redirect:" + path;
+	}
+	
+	@GetMapping("fileTest")
+	public String fileTest() {
+		
+		return "myPage/myPage-fileTest";
+	}
+	
+	@GetMapping("fileList")
+	public String fileList() {
+		return "myPage/myPage-fileList";
+	}
+	
+	@PostMapping("file/test1")
+	public String fileUpload1(@RequestParam("uploadFile") MultipartFile uploadFile, RedirectAttributes ra) {
+		
+		try {
+			
+			String path = service.fileUpload1(uploadFile);
+			
+			if(!path.isBlank()) {
+				ra.addFlashAttribute("path", path);
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
+		return "redirect:/myPage/fileTest";
 	}
 	
 }

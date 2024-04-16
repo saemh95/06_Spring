@@ -14,7 +14,50 @@
     <!-- 메인 페이지 내용  -->
     <section class="content">
     
-      <section class="content-1"></section>
+      <section class="content-1">
+        <h2>빠른 로그인</h2>
+        <button type="button"><a href="/member/quickLogin?memberEmail=water.squid.head@gmail.com">water.squid.head@gmail.com</a></button>
+        <button type="button"><a href="/member/quickLogin?memberEmail=user01@kh.or.kr">user01@kh.or.kr</a></button>
+        <hr>
+        <h2>빠른 로그인 2</h2>
+        <button type="button"><a class="quick-login">water.squid.head@gmail.com</a></button>
+        <button type="button"><a class="quick-login">user01@kh.or.kr</a></button>
+        <button type="button"><a class="quick-login">saem.hong.95@gmail.com</a></button>
+        <hr>
+        <h3>
+          회원 목록 조회 (비동기)
+          <button id="selectMemberList">조회</button>
+        </h3>
+        <table border="1">
+          <thead>
+              <th>회원 번호</th>
+              <th>이메일</th>
+              <th>닉네임</th>
+              <th>탈퇴 여부</th>
+          </thead>
+          <tbody id="memberList">
+          </tbody>
+        </table>
+
+        <hr>
+
+        <h3>특정 회원 비밀번호 초기화(Ajax)</h3>
+        <div>
+            회원번호:
+            <input type="text" id="resetMemberNo">
+            <button id="resetPw">비밀번호 pass01!로 초기화</button>
+        </div>
+
+        <hr>
+        <h3>특정 회원(회원번호) 탈퇴 복구 (Ajax)</h3>
+        <div>
+            회원번호 : 
+            <input type="text" id="restorationMemberNo">
+            <button id="resporationBtn">복구하기</button>
+        </div>
+      </section>
+
+     
 
       <section class="content-2">
         <!-- 로그인, 회원가입 버튼 -->

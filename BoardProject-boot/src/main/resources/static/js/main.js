@@ -60,3 +60,77 @@ if(loginForm != null) {
     });
 }
 // console.log(loginEmail.value);
+
+const quickLogin = document.querySelectorAll(".quick-login");
+
+quickLogin.forEach((items, index) => {
+
+    items.addEventListener("click", () => {
+        const email = items.innerText;
+        location.href = "/member/quickLogin?memberEmail=" + email;
+    });
+});
+
+const selectMemberList = document.querySelector("#selectMemberList");
+const memberList = document.querySelector("#memberList");
+
+selectMemberList.addEventListener("click", () => {
+    fetch("/member/selectMemberList").then(resp => resp.json()).then(list => {
+        memberList.innerHTML="";
+
+        for (let member of list) {
+            const tr = document.createElement("tr");
+            const arr = ['memberNo', 'memberEmail', 'memberNickname', 'memberDelFl'];
+
+            for(let key of arr) {
+                const td = document.createElement("td");
+                
+                td.innerText = member[key];
+                tr.append(td);    
+            }
+            memberList.append(tr);
+        }
+    });
+});
+
+
+const resetPw = document.querySelector("#resetPw");
+
+
+
+resetPw.addEventListener("click", () => {
+    const resetMemberNo = document.querySelector("#resetMemberNo");
+    
+    fetch("/member/resetPw", {
+        method : "PUT",
+        headers : {"Content-Type" : "application/json"},
+        body : resetMemberNo.value
+    }).then(resp => resp.text()).then(result => {
+        if(result>0) {
+            alert("Password Reset");
+            resetMemberNo.value = "";
+        } else {
+            alert("Password Reset Error");
+        }
+    }).catch(error => console.log(error));
+});
+
+const resporationBtn = document.querySelector("#resporationBtn");
+
+resporationBtn.addEventListener("click", () => {
+
+    const restorationMemberNo = document.querySelector("#restorationMemberNo");
+    fetch("/member/restorationMember", {
+        method : "PUT",
+        headers : {"Content-Type" : "application/json"},
+        body : restorationMemberNo.value
+    }).then(resp => resp.text()).then(result => {
+
+        if(result>0) {
+            alert("User Restored");
+            restorationMemberNo.value = "";
+        } else {
+            alert("Restoration Error");
+        }
+    });
+});

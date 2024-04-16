@@ -1,10 +1,12 @@
 package edu.kh.project.mypage.model.service;
 
+import java.io.File;
 import java.util.Map;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.project.member.model.dto.Member;
 import edu.kh.project.mypage.model.mapper.MypageMapper;
@@ -62,6 +64,20 @@ public class MypageServiceImpl implements MypageService{
 		}
 		
 		return mapper.secession(memberNo);
+	}
+
+	@Override
+	public String fileUpload1(MultipartFile uploadFile) throws Exception{
+
+		if(uploadFile.isEmpty()) {
+			return null;
+		}
+		uploadFile.transferTo(new File("C:\\uploadFiles\\temp\\" + uploadFile.getOriginalFilename()));
+		
+//		Server : C:/uploadFiles/test/a.jpg
+//		web : /myPage/file/a.jpg
+		
+		return "/myPage/file/" + uploadFile.getOriginalFilename();
 	}
 	
 }

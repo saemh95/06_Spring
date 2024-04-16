@@ -1,14 +1,19 @@
 package edu.kh.project.member.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.member.model.dto.Member;
@@ -16,11 +21,6 @@ import edu.kh.project.member.model.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @SessionAttributes({"loginMember"})
@@ -31,6 +31,20 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
+	
+	@GetMapping("quickLogin")
+	public String quickLogin(Model model, Member inputMember, RedirectAttributes ra) {
+		
+		Member loginMember = service.quickLogin(inputMember);
+		
+		if(loginMember == null) {
+			ra.addFlashAttribute("message", "Login Error");
+		}
+		if(loginMember != null) {			
+			model.addAttribute("loginMember", loginMember);
+		}
+		return "redirect:/";
+	}
 	
 	/**
 	 * @param inputMember
@@ -126,5 +140,29 @@ public class MemberController {
 		
 		return service.checkNickname(memberNickname);
 	}
+	
+	@ResponseBody
+	@GetMapping("selectMemberList")
+	public List<Member> selectMemberList() {
+		
+		return service.selectMemberList();
+		
+	}
+	
+	@ResponseBody
+	@PutMapping("resetPw")
+	public int resetPw(@RequestBody int resetMemberNo) {
+	
+		int result = service.resetPw(resetMemberNo);
+		return result;
+	}
+	
+	@ResponseBody
+	@PutMapping("restorationMember")
+	public int restorationMember(@RequestBody int restorationMember) {
+		
+		return service.restorationMember(restorationMember);
+	}
+	
 	
 }

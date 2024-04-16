@@ -52,8 +52,13 @@
 
 
         </pre>
-
+        <form action="/myPage/file/test1" enctype="multipart/form-data" method="post">
+          <h3>Upload test1</h3>
+          <input type="file" name="uploadFile">
+          <button class="myPage-submit">Submit</button>
+        </form>
      	
+        <a th:if="${path != null}" th:text="${path}" th:href="${path}" download>Upload File</a>
         
 
 

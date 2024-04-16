@@ -14,4 +14,13 @@
   		INSERT INTO "MEMBER" VALUES (SEQ_MEMBER_NO.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberNickname}, #{memberTel}, #{memberAddress}, NULL, SYSDATE, DEFAULT, DEFAULT)
   		
   </insert>
+  <select id="selectMemberList" resultType="Member">
+  		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_TEL, MEMBER_ADDRESS, PROFILE_IMG, TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') AS ENROLL_DATE, AUTHORITY, MEMBER_DEL_FL  FROM "MEMBER" WHERE MEMBER_DEL_FL = 'N' ORDER BY MEMBER_NO 
+  </select>
+  <update id="resetPw" parameterType="map">
+  		UPDATE "MEMBER" SET MEMBER_PW = #{enc} WHERE MEMBER_NO = #{memberNo}
+  </update>
+  <update id="restorationMember">
+  		UPDATE "MEMBER" SET MEMBER_DEL_FL = 'N' WHERE MEMBER_NO = #{memberNo}
+  </update>
 </mapper>
