@@ -32,4 +32,7 @@
   		, TO_CHAR(FILE_UPLOAD_DATE, 'YYYY-MM-DD') AS FILE_UPLOAD_DATE FROM "UPLOAD_FILE"
   		JOIN "MEMBER" USING (MEMBER_NO) ORDER BY FILE_NO DESC
   	</select>
+  	<update id="profile">
+  		UPDATE "MEMBER" SET PROFILE_IMG = #{profileImg} WHERE MEMBER_NO = #{memberNo}
+  	</update>
 </mapper>

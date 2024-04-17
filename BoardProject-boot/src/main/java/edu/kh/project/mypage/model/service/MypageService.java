@@ -25,5 +25,7 @@ public interface MypageService {
 
 	int multipleFile(List<MultipartFile> aaaList, List<MultipartFile> bbbList, int memberNo) throws IOException;
 
+	int profile(MultipartFile profileImg, Member loginMember)throws Exception;
+
 	
 }

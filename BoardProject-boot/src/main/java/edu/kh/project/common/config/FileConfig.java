@@ -18,14 +18,7 @@ import jakarta.servlet.MultipartConfigElement;
 public class FileConfig implements WebMvcConfigurer{
 
 	
-//	web request path
-//	-> server path
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		
-		registry.addResourceHandler("/myPage/file/**").addResourceLocations("file:///C:/uploadFiles/temp/");
-		
-	}
+
 	
 	@Value("${spring.servlet.multipart.file-size-threshold}")
 	private long fileSizeThreshold;
@@ -38,6 +31,27 @@ public class FileConfig implements WebMvcConfigurer{
 	
 	@Value("${spring.servlet.multipart.location}")
 	private String location;
+	
+	@Value("${my.profile.resource-handler}")
+	private String profileResourceHandler;
+	
+	@Value("${my.profile.resource-location}")
+	private String profileResourceLocation;
+	
+	
+//	web request path
+//	-> server path
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		
+		registry.addResourceHandler("/myPage/file/**").addResourceLocations("file:///C:/uploadFiles/temp/");
+		
+//		file:///C: -> file system root directory
+//		file:// -> URL Scheme, file system resource
+		
+		registry.addResourceHandler(profileResourceHandler).addResourceLocations(profileResourceLocation);
+		
+	}
 	
 //	MultipartResolver config
 	@Bean

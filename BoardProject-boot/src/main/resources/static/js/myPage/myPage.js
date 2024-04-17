@@ -24,7 +24,13 @@ function execDaumPostcode() {
     }).open();
 }
 
-document.querySelector("#searchAddress").addEventListener("click", execDaumPostcode);
+const searchAddress = document.querySelector("#searchAddress");
+
+if(searchAddress != null) {
+  searchAddress.addEventListener("click", execDaumPostcode);
+}
+
+// document.querySelector("#searchAddress").addEventListener("click", execDaumPostcode);
 const updateInfo = document.querySelector("#updateInfo");
 
 // #updateInfo 요소가 존재 할 때만 수행 
@@ -99,6 +105,7 @@ if(updateInfo != null){
 }
 
 // --- changePw
+const changePw = document.querySelector("#changePw");
 
 if (changePw != null) {
     changePw.addEventListener("submit", e => {
@@ -129,6 +136,7 @@ if (changePw != null) {
         }
     });
 }
+
 const secession = document.querySelector("#secession");
 
 if(secession != null) {

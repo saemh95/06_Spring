@@ -250,4 +250,22 @@ public class MypageController {
 		}
 		return "redirect:/myPage/fileTest";
 	}
+	
+	@PostMapping("profile")
+	public String profile(@RequestParam("profileImg") MultipartFile profileImg, 
+			@SessionAttribute("loginMember") Member loginMember, RedirectAttributes ra) throws Exception{
+		
+		int result = service.profile(profileImg,loginMember);
+		
+		String message = null;
+		
+		if (result>0) {
+			message = "Profile Image Updated";
+		} else message = "Profile Image Update Error";
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:profile";
+	}
+	
 }

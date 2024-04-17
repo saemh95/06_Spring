@@ -45,13 +45,13 @@
           </div>
 
           <div class="myPage-row">
-            <label >이메일</label>
-            <span></span>
+            <label>이메일</label>
+            <span th:text="${session.loginMember.memberEmail}"></span>
           </div>
 
           <div class="myPage-row">
             <label>가입일</label>
-            <span></span>
+            <span th:text="${session.loginMember.enrollDate}"></span>
           </div>
 
         </form>
@@ -71,8 +71,9 @@
   <!-- 회원 프로필 이미지 js 변수로 얻어놓기 -->
 
   <script th:inline="javascript">
-    
+    const loginMemberProfileImg = /*[[${session.loginMember.profileImg}]]*/ "User Profile Image";
   </script>
   <script src="/js/myPage/myPage.js"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>

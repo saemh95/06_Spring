@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +21,18 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional(rollbackFor = Exception.class)
 @RequiredArgsConstructor
+@PropertySource("classpath:/config.properties")
 public class MypageServiceImpl implements MypageService{
 
 	private final MypageMapper mapper;
 
 	private final BCryptPasswordEncoder bcrypt;
 	
+	@Value("${my.profile.web-path}")
+	private String profileWebPath;
+	
+	@Value("${my.profile.folder-path}")
+	private String profileFolderPath;
 	
 	public int updateInfo(Member inputMember, String[] memberAddress) {
 		
@@ -144,6 +152,35 @@ public class MypageServiceImpl implements MypageService{
 		
 		
 		return result1+result2;
+	}
+
+	@Override
+	public int profile(MultipartFile profileImg, Member loginMember) throws Exception{
+
+		int memberNo = loginMember.getMemberNo();
+		
+		String updatePath = null;
+		String rename = null;
+		
+		if(!profileImg.isEmpty()) {
+			rename = Utility.fileRemane(profileImg.getOriginalFilename());
+			
+			updatePath = profileWebPath+rename;
+		}
+		
+		Member member = Member.builder().memberNo(memberNo).profileImg(updatePath).build();
+		
+		int result = mapper.profile(member);
+		
+		if(result>0) {
+			if(!profileImg.isEmpty()) {
+				profileImg.transferTo(new File(profileFolderPath + rename));
+				
+			}
+			loginMember.setProfileImg(updatePath);
+		}
+		
+		return result;
 	}
 	
 }
