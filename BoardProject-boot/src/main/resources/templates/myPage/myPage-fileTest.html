@@ -60,8 +60,37 @@
      	
         <a th:if="${path != null}" th:text="${path}" th:href="${path}" download>Upload File</a>
         
+        <img th:src="${path}">
 
+        <hr>
+        <form action="/myPage/file/test2" enctype="multipart/form-data" method="post">
+          <h3>File Upload + Save to DB</h3>
+          <input type="file" name="uploadFile-test2">
+          <button class="myPage-submit">Submit</button>
+        </form>
+        <hr>
+        <form action="/myPage/file/test3" enctype="multipart/form-data" method="post">
+          <h3>Multiple File Upload</h3>
+          <pre>
+            1) same [name] input type="file"
+            2) multiple opt
+          </pre>
 
+          <div>
+            1) type = "file" multiple
+            <br>
+            <input type="file" name="aaa">
+            <br>
+            <input type="file" name="aaa">
+          </div>
+          <hr>
+          <div>
+            2) multiple opt
+            <br>
+            <input type="file" name ="bbb" multiple>
+          </div>
+          <button class="myPage-submit">Submit</button>
+        </form>
       </section>
 
     </section>

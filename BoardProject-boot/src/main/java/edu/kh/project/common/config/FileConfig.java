@@ -22,7 +22,9 @@ public class FileConfig implements WebMvcConfigurer{
 //	-> server path
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		
 		registry.addResourceHandler("/myPage/file/**").addResourceLocations("file:///C:/uploadFiles/temp/");
+		
 	}
 	
 	@Value("${spring.servlet.multipart.file-size-threshold}")

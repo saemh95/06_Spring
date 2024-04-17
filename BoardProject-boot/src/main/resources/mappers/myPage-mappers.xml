@@ -24,5 +24,12 @@
   		MEMBER_DEL_FL = 'Y'
   		WHERE MEMBER_NO = #{memberNo}
   	</update>
-  	
+  	<insert id="insertUploadFile">
+  		INSERT INTO "UPLOAD_FILE" VALUES (SEQ_FILE_NO.NEXTVAL, #{filePath}, #{fileOriginalName}, #{fileRename}, DEFAULT, #{memberNo})
+  	</insert>
+  	<select id="fileList" resultType="UploadFile">
+  		SELECT FILE_NO, FILE_PATH, FILE_ORIGINAL_NAME, FILE_RENAME, MEMBER_NICKNAME
+  		, TO_CHAR(FILE_UPLOAD_DATE, 'YYYY-MM-DD') AS FILE_UPLOAD_DATE FROM "UPLOAD_FILE"
+  		JOIN "MEMBER" USING (MEMBER_NO) ORDER BY FILE_NO DESC
+  	</select>
 </mapper>

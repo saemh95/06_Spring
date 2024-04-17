@@ -1,6 +1,8 @@
 package edu.kh.project.mypage.model.service;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.project.common.util.Utility;
 import edu.kh.project.member.model.dto.Member;
+import edu.kh.project.mypage.model.dto.UploadFile;
 import edu.kh.project.mypage.model.mapper.MypageMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -78,6 +82,68 @@ public class MypageServiceImpl implements MypageService{
 //		web : /myPage/file/a.jpg
 		
 		return "/myPage/file/" + uploadFile.getOriginalFilename();
+	}
+
+	@Override
+	public int insertUploadFile(MultipartFile uploadFile, int memberNo) throws IOException{
+
+		
+		if(uploadFile.isEmpty()) {
+			return 0;
+		}
+//		folder to save file in server
+		String folderPath = "C:/uploadFiles/temp/";
+//		path to save file in web (client)
+		String webPath = "/myPage/file/";
+//		rename file -> utility class
+		String fileRename = Utility.fileRemane(uploadFile.getOriginalFilename());
+		
+		UploadFile uf = UploadFile.builder().memberNo(memberNo).filePath(webPath)
+						.fileOriginalName(uploadFile.getOriginalFilename())
+						.fileRename(fileRename).build();
+		
+		
+		int result = mapper.insertUploadFile(uf);
+		
+		if(result==0) return 0;
+		
+		uploadFile.transferTo(new File(folderPath + fileRename));
+		
+		
+		return result;
+	}
+
+	@Override
+	public List<UploadFile> fileList() {
+		
+		
+		return mapper.fileList();
+	}
+
+	@Override
+	public int multipleFile(List<MultipartFile> aaaList, List<MultipartFile> bbbList, int memberNo) throws IOException{
+
+		int result1 = 0;
+		
+		for (MultipartFile file : aaaList) {
+			if(file.isEmpty()) {
+				continue;
+			}
+			result1 += insertUploadFile(file, memberNo);
+		}
+		
+		int result2 = 0;
+		
+		for(MultipartFile file : bbbList) {
+			if(file.isEmpty()) {
+				continue;
+			}
+			result2 += insertUploadFile(file, memberNo);
+			
+		}
+		
+		
+		return result1+result2;
 	}
 	
 }

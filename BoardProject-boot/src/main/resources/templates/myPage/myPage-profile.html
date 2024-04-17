@@ -31,7 +31,7 @@
         <form action="profile" method="POST" name="myPageFrm" id="profile" enctype="multipart/form-data">
           <div class="profile-image-area">
 
-            <img>
+            <img th:with="user=#{user.default.image}" th:src="${session.loginMember.profileImg ?: user}" id="profileImg">
 
           </div>
           <span id="deleteImage">x</span>
@@ -70,7 +70,9 @@
   
   <!-- 회원 프로필 이미지 js 변수로 얻어놓기 -->
 
-
+  <script th:inline="javascript">
+    
+  </script>
   <script src="/js/myPage/myPage.js"></script>
 </body>
 </html>

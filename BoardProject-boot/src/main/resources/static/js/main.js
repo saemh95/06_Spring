@@ -115,9 +115,9 @@ resetPw.addEventListener("click", () => {
     }).catch(error => console.log(error));
 });
 
-const resporationBtn = document.querySelector("#resporationBtn");
+const restorationBtn = document.querySelector("#resporationBtn");
 
-resporationBtn.addEventListener("click", () => {
+restorationBtn.addEventListener("click", () => {
 
     const restorationMemberNo = document.querySelector("#restorationMemberNo");
     fetch("/member/restorationMember", {

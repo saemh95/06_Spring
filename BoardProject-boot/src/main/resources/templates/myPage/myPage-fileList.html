@@ -36,22 +36,25 @@
               <th>파일명</th>
               <th>업로드 회원</th>
               <th>업로드 날짜</th>
+              <th>이미지</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr>
+            <tr th:each="file : ${list}" th:object="${file}">
 
-              <td>파일 번호</td>
+              <td th:text="*{fileNo}">파일 번호</td>
 
               <td>
-                <a>파일명</a>
+                <a th:href="|*{filePath}*{fileRename}|" th:download="*{fileOriginalName}" th:text="*{fileOriginalName}">파일명</a>
               </td>
 
-              <td>업로드 회원</td>
+              <td th:text="*{memberNickname}">업로드 회원</td>
 
-              <td>업로드 날짜</td>
-			  
+              <td th:text="*{fileUploadDate}">업로드 날짜</td>
+              <td>
+                <img th:src="|*{filePath}*{fileRename}|" height="100vw">
+              </td>
 			  </tr>
 			</tbody>
 

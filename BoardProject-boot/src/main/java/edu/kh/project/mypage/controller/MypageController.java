@@ -1,5 +1,6 @@
 package edu.kh.project.mypage.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -12,12 +13,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.member.model.dto.Member;
+import edu.kh.project.mypage.model.dto.UploadFile;
 import edu.kh.project.mypage.model.service.MypageService;
-import jakarta.servlet.annotation.MultipartConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import oracle.jdbc.proxy.annotation.Post;
@@ -173,10 +173,6 @@ public class MypageController {
 		return "myPage/myPage-fileTest";
 	}
 	
-	@GetMapping("fileList")
-	public String fileList() {
-		return "myPage/myPage-fileList";
-	}
 	
 	@PostMapping("file/test1")
 	public String fileUpload1(@RequestParam("uploadFile") MultipartFile uploadFile, RedirectAttributes ra) {
@@ -196,4 +192,62 @@ public class MypageController {
 		return "redirect:/myPage/fileTest";
 	}
 	
+	@PostMapping("file/test2")
+	public String insertUploadFile(@RequestParam("uploadFile-test2") MultipartFile uploadFile, RedirectAttributes ra, 
+			@SessionAttribute("loginMember") Member loginMember) {
+		
+		try {
+			int memberNo = loginMember.getMemberNo();
+			
+			int result = service.insertUploadFile(uploadFile, memberNo);
+			
+			String message = null;
+			
+			if(result > 0) {
+				message = "File Uploaded";
+			} else {
+				message= "Uploading File Error";
+			}
+			
+			ra.addFlashAttribute("message", message);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/myPage/fileTest";
+	}
+	
+	@GetMapping("fileList")
+	public String fileList(Model model) {
+		
+		List<UploadFile> list = service.fileList();
+		
+		model.addAttribute("list", list);
+		
+		return "myPage/myPage-fileList";
+	}
+	
+	@PostMapping("file/test3")
+	public String multipleFile(@RequestParam("aaa") List<MultipartFile> aaaList, @RequestParam("bbb") List<MultipartFile> bbbList, 
+								RedirectAttributes ra, @SessionAttribute("loginMember") Member loginMember) {
+		
+		try {
+			int memberNo = loginMember.getMemberNo();
+			
+//			upload file amount
+			int result = service.multipleFile(aaaList, bbbList, memberNo);
+			
+			String message = null;
+			
+			if(result == 0) message = "No file Uploaded";
+			else message = result + " Number of file Uploaded";
+			
+			ra.addFlashAttribute("message", message);
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return "redirect:/myPage/fileTest";
+	}
 }
