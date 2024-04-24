@@ -46,14 +46,14 @@
   <!-- navigator -->
   <nav>
     <ul>
-      <li>
-        <a href="#">Announcements</a>
-      </li>
-      <li>
-        <a href="#">Discussion Board</a>
-      </li>
-      <li>
-        <a href="#">Q&A</a>
-      </li>
+      <th:block th:each="boardType : ${application.boardTypeList}">
+        <li>
+          <a th:text="${boardType.boardName}"
+             th:href="@{/board/{boardCode}(boardCode=${boardType.boardCode})}"
+             >Discussion Board</a>
+        </li>
+      </th:block>
     </ul>
   </nav>
+
+  

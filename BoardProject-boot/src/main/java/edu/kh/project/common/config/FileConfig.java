@@ -32,12 +32,20 @@ public class FileConfig implements WebMvcConfigurer{
 	@Value("${spring.servlet.multipart.location}")
 	private String location;
 	
+//	profile image
+	
 	@Value("${my.profile.resource-handler}")
 	private String profileResourceHandler;
 	
 	@Value("${my.profile.resource-location}")
 	private String profileResourceLocation;
 	
+//	board image
+	@Value("${my.board.resource-hander}")
+	private String boardResourceHandler;
+	
+	@Value("${my.board.resource-location}")
+	private String boardResourceLocation;
 	
 //	web request path
 //	-> server path
@@ -51,6 +59,8 @@ public class FileConfig implements WebMvcConfigurer{
 		
 		registry.addResourceHandler(profileResourceHandler).addResourceLocations(profileResourceLocation);
 		
+		
+		registry.addResourceHandler(boardResourceHandler).addResourceLocations(boardResourceLocation);
 	}
 	
 //	MultipartResolver config
