@@ -94,9 +94,9 @@
                     <th:block th:each="i : ${#numbers.sequence(start, #lists.size(board.imageList) - 1)}">
                         <div class="img-box">
                             <div class="boardImg">
-                                <img th:src="|${board.imageList[i].imgPath}&{board.imageList[i].imgRename}|">
-                                <a th:href="|${board.imageList[i].imgPath}&{board.imageList[i].imgRename}|"
-                                th:download="${board.imageList[i].imgOriginalName   }">다운로드</a>                
+                                <img th:src="|${board.imageList[i].imgPath}${board.imageList[i].imgRename}|">
+                                <a th:href="|${board.imageList[i].imgPath}${board.imageList[i].imgRename}|"
+                                th:download="${board.imageList[i].imgOriginalName}">다운로드</a>                
                             </div>
                         </div>
                     </th:block>                                   

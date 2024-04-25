@@ -77,7 +77,7 @@
 			</div>
 			<div class="btn-area">
 				<!-- 로그인 상태일 때만 글쓰기 버튼 노출 -->
-				<button id="insertBtn">글쓰기</button>
+				<button id="insertBtn" th:if="${session.loginMember?.memberNo != null}">글쓰기</button>
 			</div>
 			<!-- ============================================================================================================== -->
 			<!-- 게시글이 있을 때만 페이지네이션이 보이게 할 예정 -->
@@ -125,5 +125,10 @@
 		<th:block ></th:block>
 	</main>
 	<th:block th:replace="~{common/footer}"></th:block>
+
+	<script th:inline="javascript">
+		const boardCode = /*[[${boardCode}]]*/ "Board Code";
+	</script>
+	<script src="/js/board/boardList.js"></script>
 </body>
 </html>

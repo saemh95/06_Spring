@@ -54,10 +54,10 @@ public class BoardController {
 	@GetMapping("{boardCode:[0-9]+}")
 	public String selectBoardList(@PathVariable("boardCode") int boardCode, @RequestParam(value="cp", required=false, defaultValue="1") int cp, Model model) {
 		
-		log.debug("boardCode : " + boardCode);
+//		log.debug("boardCode : " + boardCode);
 		
 		Map<String, Object> map = service.selectBoardList(boardCode, cp);
-		 log.debug("map : "+map);
+//		 log.debug("map : "+map);
 		model.addAttribute("pagination", map.get("pagination"));
 		model.addAttribute("boardList", map.get("boardList"));
 		return "board/boardList";

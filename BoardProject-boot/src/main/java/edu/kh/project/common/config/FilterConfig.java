@@ -17,7 +17,7 @@ public class FilterConfig {
 		FilterRegistrationBean<LoginFilter> filter = new FilterRegistrationBean<>();
 		filter.setFilter(new LoginFilter());
 		
-		String[] filteringURL = {"/myPage/*"};
+		String[] filteringURL = {"/myPage/*", "/editBoard/*"};
 		
 		filter.setUrlPatterns(Arrays.asList(filteringURL));
 		
