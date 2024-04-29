@@ -36,3 +36,17 @@ icon.addEventListener("click", (e) => {
         e.target.nextElementSibling.innerText = count;
     });
 });
+
+
+// update
+
+const updateBtn = document.querySelector("#updateBtn");
+
+if(updateBtn != null) {
+    updateBtn.addEventListener("click", () => {
+
+        // Current : /board/1/2001?cp=1
+        // Move : /editBoard/1/2001/update?cp=1
+        location.href= location.pathname.replace('board', 'editBoard') + "/update" + location.search;
+    });
+}

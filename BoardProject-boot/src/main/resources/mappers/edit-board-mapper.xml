@@ -56,4 +56,27 @@
 			FROM DUAL 
 		</foreach>
 	</insert>
+	
+	<update id="boardUpdate">
+		UPDATE "BOARD" SET BOARD_TITLE = #{boardTitle}, BOARD_CONTENT = #{boardContent}, BOARD_UPDATE_DATE = SYSDATE 
+		WHERE MEMBER_NO = #{memberNo} AND BOARD_CODE = #{boardCode} AND BOARD_NO = #{boardNo}
+	</update>
+	
+	<!-- 
+		#{} : literal
+		${} : SQL ->
+	 -->
+	<delete id="deleteImage">
+		DELETE FROM "BOARD_IMG" WHERE IMG_ORDER IN (${deleteOrder}) AND BOARD_NO = #{boardNo}
+	</delete>
+	
+	<update id="updateImage">
+		UPDATE "BOARD_IMG" SET IMG_ORIGINAL_NAME = #{imgOriginalName}, IMG_RENAME = #{imgRename}
+		WHERE BOARD_NO = #{boardNo} AND IMG_ORDER = #{imgOrder}
+	</update>
+	
+	<insert id="insertImage">
+		INSERT INTO "BOARD_IMG" VALUES 
+		(NEXT_IMG_NO(), #{imgPath}, #{imgOriginalName}, #{imgRename}, #{imgOrder}, #{boardNo}) 
+	</insert>
 </mapper>

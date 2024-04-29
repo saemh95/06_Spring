@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="|${boardNo}번 글 수정|"></title>
-
+    
     <th:block th:replace="~{common/common}"></th:block>
-
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" th:href="@{/css/board/boardWrite-style.css}">
 </head>
 <body>
@@ -98,6 +98,18 @@
 
     <th:block th:replace="~{common/footer}"></th:block>
 
+    <script th:inline="javascript">
+        const imageList = /*[[${board.imageList}]]*/ [];
+        const previewList = document.querySelectorAll("img.preview");
 
+        const orderList = [];
+
+        for(let img of imageList) {
+            previewList[img.imgOrder].src = img.imgPath + img.imgRename;
+
+            orderList.push(img.imgOrder);
+        }
+    </script>
+    <script src="/js/board/boardUpdate.js"></script>
 </body>
 </html>

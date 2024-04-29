@@ -10,4 +10,6 @@ public interface EditBoardService {
 
 	int boardInsert(Board inputBoard, List<MultipartFile> images) throws Exception;
 
+	int boardUpdate(Board inputBoard, List<MultipartFile> images, String deleteOrder) throws Exception;
+
 }
