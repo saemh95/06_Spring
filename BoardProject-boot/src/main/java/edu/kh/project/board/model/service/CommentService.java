@@ -10,4 +10,8 @@ public interface CommentService {
 
 	int insert(Comment comment);
 
+	int update(Comment comment);
+
+	int delete(int commentNo);
+
 }

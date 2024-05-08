@@ -17,6 +17,10 @@ public interface BoardService {
 
 	int updateReadCount(int boardNo);
 
+	Map<String, Object> searchList(Map<String, Object> paramMap, int cp);
+
+	List<String> selectDbImageList();
+
 	
 	
 }

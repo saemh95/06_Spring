@@ -112,5 +112,42 @@ public class BoardServiceImpl implements BoardService{
 		
 		return -1;
 	}
+
+	@Override
+	public Map<String, Object> searchList(Map<String, Object> paramMap, int cp) {
+
+		int listCount = mapper.searchListCount(paramMap);
+		
+		Pagination pagination = new Pagination(cp, listCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cp -1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		/* Mapper 메서드 호출 시 
+		 * 
+		 * - 첫 번째 매개변수 -> SQL에 전달할 파라미터 
+		 * - 두 번째 매개변수 -> RowBounds 객체 전달 
+		 * 
+		 * */
+		List<Board> boardList = mapper.searchList(paramMap, rowBounds);
+		
+		
+		// 4. 목록 조회 결과 + Pagination 객체를 Map으로 묶음
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("boardList", boardList);
+		
+		
+		return map;
+	}
+
+	@Override
+	public List<String> selectDbImageList() {
+		
+		return mapper.selectDbImageList();
+	}
+
+	
 	
 }

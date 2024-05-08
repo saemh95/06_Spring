@@ -29,4 +29,10 @@
  		</if>
  		)
  	</insert>
+ 	<update id="update">
+ 		UPDATE "COMMENT" SET COMMENT_CONTENT = #{commentContent} WHERE COMMENT_NO = #{commentNo}
+ 	</update>
+ 	<delete id="delete">
+ 		UPDATE "COMMENT" SET COMMENT_DEL_FL = 'Y' WHERE COMMENT_NO = #{commentNo}
+ 	</delete>
 </mapper>

@@ -29,4 +29,10 @@ public interface BoardMapper {
 
 	int selectReadCount(int boardNo);
 
+	int searchListCount(Map<String, Object> paramMap);
+
+	List<Board> searchList(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	List<String> selectDbImageList();
+
 }
