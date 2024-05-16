@@ -151,7 +151,7 @@ public class BoardController {
 			
 			if(!board.getImageList().isEmpty()) {
 				BoardImg thumbnail = null;
-				
+				 
 				if(board.getImageList().get(0).getImgOrder() == 0) {
 					thumbnail = board.getImageList().get(0);
 				}
