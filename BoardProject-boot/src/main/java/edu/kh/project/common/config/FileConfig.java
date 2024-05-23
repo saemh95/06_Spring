@@ -41,7 +41,7 @@ public class FileConfig implements WebMvcConfigurer{
 	private String profileResourceLocation;
 	
 //	board image
-	@Value("${my.board.resource-hander}")
+	@Value("${my.board.resource-handler}")
 	private String boardResourceHandler;
 	
 	@Value("${my.board.resource-location}")
