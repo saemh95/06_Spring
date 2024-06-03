@@ -50,14 +50,14 @@ async function fetchData() {
         nx : 60,
         ny : 127
     });
-    // console.log(url+'?'+ queryParams);
+    console.log(url+'?'+ queryParams);
     //await fetch(url + '?' + queryParams)
     try {
 
         const response = await fetch(`${url}?${queryParams}`);
         const result = await response.json();
 
-        console.log(result);
+        // console.log(result);
 
         const obj = result.response.body.items.item.reduce((acc, data) => {
             acc[data.category] = data.fcstValue;
