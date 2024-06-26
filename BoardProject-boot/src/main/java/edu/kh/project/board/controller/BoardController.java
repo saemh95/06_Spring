@@ -59,7 +59,6 @@ public class BoardController {
 //		log.debug("boardCode : " + boardCode);
 		
 		Map<String, Object> map = null;
-		
 		if(paramMap.get("key") == null) {			
 			map = service.selectBoardList(boardCode, cp);
 		} else {

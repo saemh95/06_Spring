@@ -20,7 +20,6 @@ import edu.kh.project.mypage.model.dto.UploadFile;
 import edu.kh.project.mypage.model.service.MypageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 
 @Slf4j

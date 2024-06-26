@@ -26,6 +26,11 @@ public class Member {
 	private String profileImg;
 	private String enrollDate;
 	private String memberDelFl;
+	
+//	회원가입시 -> 일반 : D / 카카오 : K / 네이버 : N
+	private String socialLoginType;
+	
+//	권환 -> 1: 일반회원 / 2: 관리자
 	private int authority;
 	
 	
